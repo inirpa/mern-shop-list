@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import logo from './logo.svg';
 import './App.css';
 import AppNavBar from './components/AppNavbar';
 import ShoppingList from './components/ShoppingList';
@@ -9,21 +8,27 @@ import {Container} from 'reactstrap';
 
 import { Provider } from 'react-redux';
 import store from './store';
+import { loadUser } from './actions/authActions'; 
 
-function App() {
-	return (
-		<Provider store={store}>
-			<div className="App">
-				<header className="App-header">
-					<AppNavBar />
-					<Container>
-						<ItemModal />
-						<ShoppingList />
-					</Container>
-				</header>
-			</div>
-		</Provider>
-	);
+class App extends Component {
+	componentDidMount(){
+		store.dispatch(loadUser());
+	}
+	render(){
+		return (
+			<Provider store={store}>
+				<div className="App">
+					<header className="App-header">
+						<AppNavBar />
+						<Container>
+							<ItemModal />
+							<ShoppingList />
+						</Container>
+					</header>
+				</div>
+			</Provider>
+		);
+	}
 }
 
 export default App;
